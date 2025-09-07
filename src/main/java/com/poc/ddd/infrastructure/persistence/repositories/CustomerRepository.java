@@ -2,6 +2,8 @@ package com.poc.ddd.infrastructure.persistence.repositories;
 
 import com.poc.ddd.domain.entities.Customer;
 import com.poc.ddd.domain.repositories.ICustomerRepository;
+import com.poc.ddd.infrastructure.persistence.postgres.CustomerMapper;
+import com.poc.ddd.infrastructure.persistence.postgres.CustomerModel;
 import com.poc.ddd.infrastructure.persistence.postgres.SpringDataCustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,7 +23,8 @@ public class CustomerRepository implements ICustomerRepository {
 
     @Override
     public void save(Customer customer) {
-
+        CustomerModel model = CustomerMapper.toPersistence(customer);
+        this.jpaRepository.save(model);
     }
 
     @Override
