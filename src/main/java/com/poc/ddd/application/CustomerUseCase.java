@@ -19,8 +19,8 @@ public class CustomerUseCase {
     }
 
     public Customer createCustomer(CreateCustomerRequestDTO request) {
-        Customer customer = new Customer(UUID.randomUUID(), request.getName(),
-                new Document(request.getDocumentType(), request.getDocumentNumber()));
+        Customer customer = Customer.create(
+                request.getName(), new Document(request.getDocumentType(), request.getDocumentNumber()));
         customerRepository.save(customer);
         return customer;
     }
