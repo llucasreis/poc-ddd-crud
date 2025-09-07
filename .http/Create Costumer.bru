@@ -1,0 +1,23 @@
+meta {
+  name: Create Costumer
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8080/customers
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "Lucas",
+    "document_type": "CPF",
+    "document_number": "123456789"
+  }
+}
+
+settings {
+  encodeUrl: true
+}
