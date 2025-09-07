@@ -2,13 +2,12 @@ package com.poc.ddd.infrastructure.persistence.repositories;
 
 import com.poc.ddd.domain.entities.Customer;
 import com.poc.ddd.domain.repositories.ICustomerRepository;
+import com.poc.ddd.domain.vos.CustomerId;
 import com.poc.ddd.infrastructure.persistence.postgres.CustomerMapper;
 import com.poc.ddd.infrastructure.persistence.postgres.CustomerModel;
 import com.poc.ddd.infrastructure.persistence.postgres.SpringDataCustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.swing.*;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -28,7 +27,9 @@ public class CustomerRepository implements ICustomerRepository {
     }
 
     @Override
-    public Optional<Customer> findById(UUID id) {
-        return Optional.empty();
+    public Optional<Customer> findById(CustomerId id) {
+        UUID modelId = id.value();
+        Optional<CustomerModel> optionalCustomerModel = this.jpaRepository.findById(modelId);
+        return optionalCustomerModel.map(CustomerMapper::toDomain);
     }
 }

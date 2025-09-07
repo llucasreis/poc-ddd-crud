@@ -3,7 +3,6 @@ package com.poc.ddd.infrastructure.persistence.postgres;
 import com.poc.ddd.domain.entities.Customer;
 import com.poc.ddd.domain.vos.CustomerId;
 import com.poc.ddd.domain.vos.Document;
-import org.springframework.stereotype.Component;
 
 public class CustomerMapper {
 
