@@ -1,7 +1,7 @@
 package com.poc.ddd.infrastructure.persistence.repositories;
 
 import com.poc.ddd.domain.entities.Customer;
-import com.poc.ddd.domain.repositories.ICustomerRepository;
+import com.poc.ddd.domain.ports.ICustomerRepository;
 import com.poc.ddd.domain.vos.CustomerId;
 import com.poc.ddd.infrastructure.persistence.postgres.CustomerMapper;
 import com.poc.ddd.infrastructure.persistence.postgres.CustomerModel;
