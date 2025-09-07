@@ -1,0 +1,28 @@
+package com.poc.ddd.application;
+
+import com.poc.ddd.domain.entities.Customer;
+import com.poc.ddd.domain.repositories.ICustomerRepository;
+import com.poc.ddd.domain.vos.Document;
+import com.poc.ddd.infrastructure.handler.controllers.CreateCustomerRequestDTO;
+import com.poc.ddd.infrastructure.handler.controllers.CustomerResponse;
+
+import org.springframework.stereotype.Service;
+
+import java.util.UUID;
+
+@Service
+public class CustomerUseCase {
+    private final ICustomerRepository customerRepository;
+
+    public CustomerUseCase(ICustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
+
+    public Customer createCustomer(CreateCustomerRequestDTO request) {
+        Customer customer = new Customer(UUID.randomUUID(), request.getName(),
+                new Document(request.getDocumentType(), request.getDocumentNumber()));
+        customerRepository.save(customer);
+        return customer;
+    }
+
+}
