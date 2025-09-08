@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -27,10 +26,14 @@ public class CustomerController {
 
     @GetMapping("/{id}")
     public ResponseEntity<CustomerResponse> findById(@PathVariable("id") UUID id) {
-        Optional<Customer> optionalCustomer = customerService.findById(id);
-        return optionalCustomer
-                .map(CustomerMapper::toResponse)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        Customer customer = customerService.findById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(CustomerMapper.toResponse(customer));
+    }
+
+    @PostMapping("/{customerId}/vehicles")
+    public ResponseEntity<CustomerResponse> addVehicleToCustomer(@PathVariable("customerId") UUID id,
+                                                                 @RequestBody AddVehicleToCustomerDTO request) {
+        Customer customer = customerService.addVehicleToCustomer(id, request.getLicensePlate());
+        return ResponseEntity.status(HttpStatus.OK).body(CustomerMapper.toResponse(customer));
     }
 }

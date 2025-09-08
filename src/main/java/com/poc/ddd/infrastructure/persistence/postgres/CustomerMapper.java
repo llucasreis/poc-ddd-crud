@@ -8,6 +8,7 @@ import com.poc.ddd.domain.vos.LicensePlate;
 import com.poc.ddd.domain.vos.VehicleId;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CustomerMapper {
 
@@ -20,7 +21,7 @@ public class CustomerMapper {
 
         List<VehicleModel> vehicleEntities = domainCustomer.getVehicles().stream()
                 .map(CustomerMapper::toPersistence)
-                .toList();
+                .collect(Collectors.toList());
         vehicleEntities.forEach(vehicleEntity -> vehicleEntity.setCustomer(model));
 
         model.setVehicles(vehicleEntities);
@@ -32,8 +33,8 @@ public class CustomerMapper {
         Document document = new Document(model.getDocumentType(), model.getDocumentNumber());
 
         List<Vehicle> domainVehicles = model.getVehicles().stream()
-                .map(CustomerMapper::toDomain) // Chama o método auxiliar toDomain(VehicleEntity)
-                .toList();
+                .map(CustomerMapper::toDomain)
+                .collect(Collectors.toList());
         return Customer.restore(customerId, model.getName(), document, domainVehicles);
     }
 

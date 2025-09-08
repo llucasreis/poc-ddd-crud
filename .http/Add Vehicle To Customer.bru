@@ -1,0 +1,21 @@
+meta {
+  name: Add Vehicle To Customer
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/customers/fadc627b-3495-4ce0-a188-3f2ec835bfb0/vehicles
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "license_plate": "NAT1441"
+  }
+}
+
+settings {
+  encodeUrl: true
+}
