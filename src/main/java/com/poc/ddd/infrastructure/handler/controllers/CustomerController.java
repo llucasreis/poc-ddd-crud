@@ -1,7 +1,7 @@
 package com.poc.ddd.infrastructure.handler.controllers;
 
 import com.poc.ddd.domain.entities.Customer;
-import com.poc.ddd.domain.ports.ICustomerService;
+import com.poc.ddd.application.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +12,9 @@ import java.util.UUID;
 @RequestMapping("/customers")
 public class CustomerController {
 
-    private final ICustomerService customerService;
+    private final CustomerService customerService;
 
-    public CustomerController(ICustomerService customerService) {
+    public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
     }
 

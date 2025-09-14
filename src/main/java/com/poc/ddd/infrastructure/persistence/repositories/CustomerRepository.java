@@ -1,7 +1,7 @@
 package com.poc.ddd.infrastructure.persistence.repositories;
 
 import com.poc.ddd.domain.entities.Customer;
-import com.poc.ddd.domain.ports.ICustomerRepository;
+
 import com.poc.ddd.domain.vos.CustomerId;
 import com.poc.ddd.infrastructure.persistence.postgres.CustomerMapper;
 import com.poc.ddd.infrastructure.persistence.postgres.CustomerModel;
@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public class CustomerRepository implements ICustomerRepository {
+public class CustomerRepository {
 
     private final SpringDataCustomerRepository jpaRepository;
 
@@ -20,13 +20,11 @@ public class CustomerRepository implements ICustomerRepository {
         this.jpaRepository = jpaRepository;
     }
 
-    @Override
     public void save(Customer customer) {
         CustomerModel model = CustomerMapper.toPersistence(customer);
         this.jpaRepository.save(model);
     }
 
-    @Override
     public Optional<Customer> findById(CustomerId id) {
         UUID modelId = id.value();
         Optional<CustomerModel> optionalCustomerModel = this.jpaRepository.findById(modelId);
